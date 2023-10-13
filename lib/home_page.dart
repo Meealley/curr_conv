@@ -16,34 +16,40 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Colors.black,
           title: Text("Convert your Currency",
               style: GoogleFonts.arsenal(
-                  textStyle:
-                      const TextStyle(fontSize: 25, fontWeight: FontWeight.w600))),
+                  textStyle: const TextStyle(
+                      fontSize: 25, fontWeight: FontWeight.w600))),
         ),
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Column(
-              // crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  "0",
-                  style: TextStyle(
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blue),
-                ),
-                const SizedBox(height: 12),
-                Text(
-                  "What currency are you planning to convert?💵",
-                  style: GoogleFonts.manrope(
-                    textStyle: const TextStyle(
-                      fontSize: 21,
-                    ),
+        body: WillPopScope(
+          onWillPop: () async {
+            // Prevent back navigation by returning false.
+            return false;
+          },
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                // crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    "0",
+                    style: TextStyle(
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue),
                   ),
-                  textAlign: TextAlign.center,
-                ),
-              ],
+                  const SizedBox(height: 12),
+                  Text(
+                    "What currency are you planning to convert?💵",
+                    style: GoogleFonts.manrope(
+                      textStyle: const TextStyle(
+                        fontSize: 21,
+                      ),
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
             ),
           ),
         ));
