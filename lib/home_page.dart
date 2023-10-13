@@ -9,11 +9,26 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final border = OutlineInputBorder(
+    borderSide: BorderSide(color: Colors.black, style: BorderStyle.solid),
+    borderRadius: BorderRadius.all(
+      Radius.circular(8),
+    ),
+  );
+  final error_border = OutlineInputBorder(
+    borderSide: BorderSide(
+      color: Colors.red,
+      style: BorderStyle.solid,
+    ),
+    borderRadius: BorderRadius.all(
+      Radius.circular(8),
+    ),
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.black,
           title: Text("Convert your Currency",
               style: GoogleFonts.arsenal(
                   textStyle: const TextStyle(
@@ -28,7 +43,6 @@ class _HomePageState extends State<HomePage> {
             child: Padding(
               padding: const EdgeInsets.all(12.0),
               child: Column(
-                // crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
@@ -47,6 +61,28 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 10),
+                  TextField(
+                    onSubmitted: (value) => debugPrint(value),
+                    keyboardType:
+                        TextInputType.numberWithOptions(decimal: true),
+                    decoration: InputDecoration(
+                      hintText: "Enter the number",
+                      hintStyle: GoogleFonts.raleway(
+                        textStyle: TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(8),
+                        ),
+                      ),
+                      focusedBorder: border,
+                      errorBorder: error_border,
+                    ),
                   ),
                 ],
               ),
