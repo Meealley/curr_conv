@@ -9,13 +9,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final border = OutlineInputBorder(
+  final border = const OutlineInputBorder(
     borderSide: BorderSide(color: Colors.black, style: BorderStyle.solid),
     borderRadius: BorderRadius.all(
       Radius.circular(8),
     ),
   );
-  final error_border = OutlineInputBorder(
+  final error_border = const OutlineInputBorder(
     borderSide: BorderSide(
       color: Colors.red,
       style: BorderStyle.solid,
@@ -66,15 +66,15 @@ class _HomePageState extends State<HomePage> {
                   TextField(
                     onSubmitted: (value) => debugPrint(value),
                     keyboardType:
-                        TextInputType.numberWithOptions(decimal: true),
+                        const TextInputType.numberWithOptions(decimal: true),
                     decoration: InputDecoration(
                       hintText: "Enter the number",
                       hintStyle: GoogleFonts.raleway(
-                        textStyle: TextStyle(
+                        textStyle: const TextStyle(
                           fontSize: 16,
                         ),
                       ),
-                      border: OutlineInputBorder(
+                      border: const OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.black),
                         borderRadius: BorderRadius.all(
                           Radius.circular(8),
@@ -82,6 +82,25 @@ class _HomePageState extends State<HomePage> {
                       ),
                       focusedBorder: border,
                       errorBorder: error_border,
+                    ),
+                  ),
+                  const SizedBox(height: 25),
+                  ElevatedButton(
+                    onPressed: () {
+                      print("Clicked");
+                    },
+                    style: const ButtonStyle(
+                        minimumSize: MaterialStatePropertyAll(
+                          Size(double.infinity, 50),
+                        ),
+                        backgroundColor:
+                            MaterialStatePropertyAll(Colors.green)),
+                    child: Text(
+                      "Convert",
+                      style: GoogleFonts.mavenPro(
+                        textStyle: const TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w400),
+                      ),
                     ),
                   ),
                 ],
