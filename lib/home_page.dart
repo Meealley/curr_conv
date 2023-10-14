@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:num_to_words/num_to_words.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -27,6 +26,12 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  @override
+  void dispose() {
+    textEditingController.dispose();
+    super.dispose();
+  }
+
   //this is the border style
   final border = const OutlineInputBorder(
     borderSide: BorderSide(color: Colors.black, style: BorderStyle.solid),
@@ -47,88 +52,88 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          title: Text("Convert your Currency",
-              style: GoogleFonts.arsenal(
-                  textStyle: const TextStyle(
-                      fontSize: 25, fontWeight: FontWeight.w600))),
-        ),
-        body: WillPopScope(
-          onWillPop: () async {
-            // Prevent back navigation by returning false.
-            return false;
-          },
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'NGN ${result.toStringAsFixed(2)}',
-                    style: GoogleFonts.anekOdia(
-                      textStyle: TextStyle(
-                          fontSize: 40,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.blue),
+      appBar: AppBar(
+        elevation: 0,
+        title: Text("Convert your Currency",
+            style: GoogleFonts.arsenal(
+                textStyle: const TextStyle(
+                    fontSize: 25, fontWeight: FontWeight.w600))),
+      ),
+      body: WillPopScope(
+        onWillPop: () async {
+          // Prevent back navigation by returning false.
+          return false;
+        },
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'NGN ${result.toStringAsFixed(2)}',
+                  style: GoogleFonts.anekOdia(
+                    textStyle: const TextStyle(
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  "What currency are you planning to convert?💵",
+                  style: GoogleFonts.manrope(
+                    textStyle: const TextStyle(
+                      fontSize: 21,
                     ),
                   ),
-                  const SizedBox(height: 12),
-                  Text(
-                    "What currency are you planning to convert?💵",
-                    style: GoogleFonts.manrope(
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 10),
+                TextField(
+                  controller: textEditingController,
+                  keyboardType:
+                      const TextInputType.numberWithOptions(decimal: true),
+                  decoration: InputDecoration(
+                    hintText: "Enter the number",
+                    hintStyle: GoogleFonts.raleway(
                       textStyle: const TextStyle(
-                        fontSize: 21,
+                        fontSize: 16,
                       ),
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 10),
-                  TextField(
-                    controller: textEditingController,
-                    keyboardType:
-                        const TextInputType.numberWithOptions(decimal: true),
-                    decoration: InputDecoration(
-                      hintText: "Enter the number",
-                      hintStyle: GoogleFonts.raleway(
-                        textStyle: const TextStyle(
-                          fontSize: 16,
-                        ),
-                      ),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: hasError ? Colors.red : Colors.black),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(8),
-                        ),
-                      ),
-                      focusedBorder: hasError ? error_border : border,
-                    ),
-                  ),
-                  const SizedBox(height: 25),
-                  ElevatedButton(
-                    onPressed: () {
-                      currConverter();
-                    },
-                    style: const ButtonStyle(
-                        minimumSize: MaterialStatePropertyAll(
-                          Size(double.infinity, 50),
-                        ),
-                        backgroundColor:
-                            MaterialStatePropertyAll(Colors.green)),
-                    child: Text(
-                      "Convert",
-                      style: GoogleFonts.mavenPro(
-                        textStyle: const TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.w400),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: hasError ? Colors.red : Colors.black),
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(8),
                       ),
                     ),
+                    focusedBorder: hasError ? error_border : border,
                   ),
-                ],
-              ),
+                ),
+                const SizedBox(height: 25),
+                ElevatedButton(
+                  onPressed: () {
+                    currConverter();
+                  },
+                  style: const ButtonStyle(
+                      minimumSize: MaterialStatePropertyAll(
+                        Size(double.infinity, 50),
+                      ),
+                      backgroundColor: MaterialStatePropertyAll(Colors.green)),
+                  child: Text(
+                    "Convert",
+                    style: GoogleFonts.mavenPro(
+                      textStyle: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.w400),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
