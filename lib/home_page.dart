@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:num_to_words/num_to_words.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -9,6 +10,24 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  //Controller
+  TextEditingController textEditingController = TextEditingController();
+  bool hasError = false;
+  double result = 0;
+
+  void currConverter() {
+    final input = textEditingController.text;
+    setState(() {
+      if (input.isNotEmpty) {
+        result = double.parse(input) * 1025;
+        hasError = false;
+      } else {
+        hasError = true;
+      }
+    });
+  }
+
+  //this is the border style
   final border = const OutlineInputBorder(
     borderSide: BorderSide(color: Colors.black, style: BorderStyle.solid),
     borderRadius: BorderRadius.all(
@@ -29,6 +48,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          elevation: 0,
           title: Text("Convert your Currency",
               style: GoogleFonts.arsenal(
                   textStyle: const TextStyle(
@@ -45,12 +65,14 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
-                    "0",
-                    style: TextStyle(
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue),
+                  Text(
+                    'NGN ${result.toStringAsFixed(2)}',
+                    style: GoogleFonts.anekOdia(
+                      textStyle: TextStyle(
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue),
+                    ),
                   ),
                   const SizedBox(height: 12),
                   Text(
@@ -64,7 +86,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   const SizedBox(height: 10),
                   TextField(
-                    onSubmitted: (value) => debugPrint(value),
+                    controller: textEditingController,
                     keyboardType:
                         const TextInputType.numberWithOptions(decimal: true),
                     decoration: InputDecoration(
@@ -74,20 +96,20 @@ class _HomePageState extends State<HomePage> {
                           fontSize: 16,
                         ),
                       ),
-                      border: const OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: hasError ? Colors.red : Colors.black),
                         borderRadius: BorderRadius.all(
                           Radius.circular(8),
                         ),
                       ),
-                      focusedBorder: border,
-                      errorBorder: error_border,
+                      focusedBorder: hasError ? error_border : border,
                     ),
                   ),
                   const SizedBox(height: 25),
                   ElevatedButton(
                     onPressed: () {
-                      print("Clicked");
+                      currConverter();
                     },
                     style: const ButtonStyle(
                         minimumSize: MaterialStatePropertyAll(
